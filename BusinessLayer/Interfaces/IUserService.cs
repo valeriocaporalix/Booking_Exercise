@@ -6,6 +6,6 @@ namespace Booking_Exercise.BusinessLayer.Interfaces
     {
         public User Post(PostUserDto postUserDto);
         public IEnumerable<LightUserDto> GetAll();
-        public User GetById(int id);
+        public DetailUserDto GetById(int id);
     }
 }

@@ -9,6 +9,7 @@ namespace Booking_Exercise.Profiles
         {
             CreateMap<LightUserDto, User>().ReverseMap();
             CreateMap<PostUserDto, User>().ReverseMap();
+            CreateMap<DetailUserDto, User>().ReverseMap();
         }
     }
 }

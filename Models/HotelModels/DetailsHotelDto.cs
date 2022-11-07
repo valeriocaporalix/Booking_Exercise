@@ -9,6 +9,6 @@ namespace Booking_Exercise.Models.HotelModels
         public string Name { get; set; }
         public string Address { get; set; }
         public ICollection<LightRatingDto> Ratings { get; set; }
-        public ICollection<Room> Rooms { get; set; }
+        public ICollection<LightRoomInHotelDto> Rooms { get; set; }
     }
 }

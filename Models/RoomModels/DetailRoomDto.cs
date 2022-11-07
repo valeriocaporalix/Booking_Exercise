@@ -8,9 +8,8 @@ namespace Booking_Exercise.Models.RoomModels
     {
         public int RoomId { get; set; }
         public RoomType RoomCapacity { get; set; }
-        public int HotelId { get; set; }
-        public LightHotelDto LightHotel { get; set; }
-       //public ICollection<Booking>? Bookings { get; set; }
+        public LightHotelDto Hotel { get; set; }
+        public ICollection<Booking>? Bookings { get; set; }
 
     }
 }

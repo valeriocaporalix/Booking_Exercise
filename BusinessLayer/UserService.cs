@@ -29,10 +29,11 @@ namespace Booking_Exercise.BusinessLayer
             return userToMap;
         }
 
-        public User GetById(int id)
+        public DetailUserDto GetById(int id)
         {
             var userToFind = _dataAccessService.GetById(id);
-            return userToFind;
+            var mappedUser = _mapper.Map<DetailUserDto>(userToFind);
+            return mappedUser;
         }
     }
 }
