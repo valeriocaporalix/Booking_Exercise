@@ -20,7 +20,13 @@ namespace Booking_Exercise.PresentationLayer.Controllers
         public IActionResult Post([FromBody] PostUserDto postUser)
         {  
                 var userToAdd = _userService.Post(postUser);
-            return Created("", userToAdd);
+            return CreatedAtAction(nameof(GetDetail),
+                new
+                {
+                    id = userToAdd.UserId
+                },
+                userToAdd);
+                
         }
 
         [HttpGet]
@@ -38,7 +44,7 @@ namespace Booking_Exercise.PresentationLayer.Controllers
                 var user = _userService.GetById(id);
                 return Ok(user);
 
-            }catch(Exception e)
+            }catch(Exception)
             {
                 return NotFound("No user with such id");
             }
