@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Booking_Exercise.Models.UserModels;
 
 namespace Booking_Exercise.Profiles
 {
@@ -6,7 +7,8 @@ namespace Booking_Exercise.Profiles
     {
         public UserProfileMappers()
         {
-
+            CreateMap<LightUserDto, User>().ReverseMap();
+            CreateMap<PostUserDto, User>().ReverseMap();
         }
     }
 }
