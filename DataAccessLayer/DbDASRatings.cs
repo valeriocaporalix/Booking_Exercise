@@ -1,5 +1,7 @@
 ﻿using Booking_Exercise.DataAccessLayer.Interfaces;
 using Booking_Exercise.Models.RatingModels;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Features;
+using Microsoft.EntityFrameworkCore;
 
 namespace Booking_Exercise.DataAccessLayer
 {
@@ -14,17 +16,21 @@ namespace Booking_Exercise.DataAccessLayer
 
         public IEnumerable<Rating> GetAll()
         {
-            throw new NotImplementedException();
+            return _ctx.Ratings;
         }
 
         public Rating GetById(int id)
         {
-            throw new NotImplementedException();
+            var rating = _ctx.Ratings.Include(rate => rate.Hotel)
+                                     .Single(rate => rate.RatingId == id);
+            return rating;
         }
 
         public Rating Post(Rating input)
         {
-            throw new NotImplementedException();
+            var rating = _ctx.Ratings.Add(input);
+            _ctx.SaveChanges();
+            return rating.Entity;
         }
     }
 }
