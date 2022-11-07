@@ -9,11 +9,9 @@ namespace Booking_Exercise.Models.BookingModels
         public int BookingId { get; set; }
         public DateTime StartBooking { get; set; }
         public DateTime EndBooking { get; set; }
-        public int UserAccountId { get; set; }
-        public User UserAccount { get; set; }
-        public int HotelId { get; set; }
-        public Hotel Hotel { get; set; }
-        public ICollection<Room> Rooms { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
+        public ICollection<Room>? Rooms { get; set; }
 
     }
 }
