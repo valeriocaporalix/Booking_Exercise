@@ -23,10 +23,11 @@ namespace Booking_Exercise.BusinessLayer
             return roomToAdd;
         }
 
-        public Room GetById(int id)
+        public DetailRoomDto GetById(int id)
         {
-            var roomToFind = _dataAccessService.GetById(id);  
-            return roomToFind;
+            var roomToFind = _dataAccessService.GetById(id); 
+            var mappedRoom = _mapper.Map<DetailRoomDto>(roomToFind);
+            return mappedRoom;
         }
 
         public IEnumerable<LightRoomDto> GetAll()

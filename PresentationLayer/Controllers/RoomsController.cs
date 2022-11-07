@@ -29,7 +29,7 @@ namespace Booking_Exercise.PresentationLayer.Controllers
                     },
                     roomToAdd);
             }
-            catch (Exception)
+            catch (InvalidOperationException)
             {
                 return BadRequest("No hotel with such id");
             }
@@ -47,7 +47,7 @@ namespace Booking_Exercise.PresentationLayer.Controllers
             {
                 return NotFound("No room with such id");
             }
-            
+
         }
 
         [HttpGet]
