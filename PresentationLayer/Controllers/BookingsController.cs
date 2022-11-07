@@ -1,5 +1,7 @@
-﻿using Booking_Exercise.BusinessLayer.Interfaces;
+﻿using Booking_Exercise.BusinessLayer;
+using Booking_Exercise.BusinessLayer.Interfaces;
 using Booking_Exercise.Models.BookingModels;
+using Booking_Exercise.Models.HotelModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +53,7 @@ namespace Booking_Exercise.PresentationLayer.Controllers
             }
         }
 
-        [HttpPut("{bookingId}/room/{roomId}")]
+        [HttpPut("{bookingId}/addRoom/{roomId}")]
         public IActionResult AddRoom(int bookingId, int roomId)
         {
             try
@@ -60,6 +62,20 @@ namespace Booking_Exercise.PresentationLayer.Controllers
                 return NoContent();
             }
             catch(Exception)
+            {
+                return BadRequest("No booking or room with such id");
+            }
+        }
+
+        [HttpPut("{bookingId}/removeRoom/{roomId}")]
+        public IActionResult RemoveRoom(int bookingId, int roomId)
+        {
+            try
+            {
+                _bookingService.RemoveRoomToBooking(bookingId, roomId);
+                return NoContent();
+            }
+            catch (Exception)
             {
                 return BadRequest("No booking or room with such id");
             }
@@ -74,6 +90,20 @@ namespace Booking_Exercise.PresentationLayer.Controllers
                 return NoContent();
             }
             catch(InvalidOperationException)
+            {
+                return BadRequest("No booking with such id");
+            }
+        }
+
+        [HttpPut("{bookingId}")]
+        public IActionResult Put([FromBody] PutBookingDto postBooking, int bookingId)
+        {
+            try
+            {
+                var bookingToPost = _bookingService.UpdateOrCreateBooking(postBooking, bookingId);
+                return NoContent();
+            }
+            catch (InvalidOperationException)
             {
                 return BadRequest("No booking with such id");
             }

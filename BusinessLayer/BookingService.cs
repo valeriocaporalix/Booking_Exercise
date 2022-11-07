@@ -2,6 +2,7 @@
 using Booking_Exercise.BusinessLayer.Interfaces;
 using Booking_Exercise.DataAccessLayer.Interfaces;
 using Booking_Exercise.Models.BookingModels;
+using Booking_Exercise.Models.HotelModels;
 
 namespace Booking_Exercise.BusinessLayer
 {
@@ -40,9 +41,25 @@ namespace Booking_Exercise.BusinessLayer
         {
             _dataAccessService.AddRooms(bookingId, roomId);
         }
+
+        public void RemoveRoomToBooking(int bookingId, int roomId)
+        {
+            _dataAccessService.RemoveRoom(bookingId, roomId);
+        }
+
         public void DeleteBooking(int bookingId)
         {
             _dataAccessService.DeleteBooking(bookingId);
+        }
+
+        public Booking UpdateOrCreateBooking(PutBookingDto postBookingDto,int bookingId)
+        {
+
+            var bookingMapped = _mapper.Map<Booking>(postBookingDto);
+            bookingMapped.BookingId = bookingId;
+            _dataAccessService.UpdateBooking(bookingMapped);
+            return bookingMapped;
+
         }
     }
 }

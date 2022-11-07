@@ -42,11 +42,30 @@ namespace Booking_Exercise.DataAccessLayer
             _ctx.SaveChanges();
         }
 
+        public void RemoveRoom(int bookingId, int roomId)
+        {
+            var bookingToUpdate = _ctx.Bookings.Include(booking => booking.Rooms)
+                                   .Single(booking => booking.BookingId == bookingId);
+            var roomToRemove = _ctx.Rooms.Single(room => room.RoomId == roomId);
+            bookingToUpdate.Rooms.Remove(roomToRemove);
+            _ctx.SaveChanges();
+        }
+
         public void DeleteBooking(int bookingId)
         {
             var bookingToDelete = _ctx.Bookings.Single(booking => booking.BookingId == bookingId);
             _ctx.Bookings.Remove(bookingToDelete);
             _ctx.SaveChanges();
+        }
+
+        public Booking UpdateBooking(Booking postBooking)
+        {
+            var bookingToUpdate = _ctx.Bookings.Single(booking => booking.BookingId == postBooking.BookingId);
+            bookingToUpdate.BookingId = postBooking.BookingId;
+            bookingToUpdate.StartBooking = postBooking.StartBooking;
+            bookingToUpdate.EndBooking = postBooking.EndBooking;
+            _ctx.SaveChanges();
+            return bookingToUpdate;
         }
     }
 }
