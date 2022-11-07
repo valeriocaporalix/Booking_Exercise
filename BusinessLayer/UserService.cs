@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Booking_Exercise.BusinessLayer.Interfaces;
 using Booking_Exercise.DataAccessLayer.Interfaces;
+using Booking_Exercise.Models.UserModels;
 
 namespace Booking_Exercise.BusinessLayer
 {
@@ -13,6 +14,25 @@ namespace Booking_Exercise.BusinessLayer
         {
             _dataAccessService = dataAccessService;
             _mapper = mapper;
+        }
+
+        public User Post(PostUserDto postUserDto)
+        {
+            var userToAdd = _mapper.Map<User>(postUserDto);
+            _dataAccessService.Post(userToAdd);
+            return userToAdd;
+        }
+
+        public IEnumerable<LightUserDto> GetAll()
+        {
+            var userToMap = _mapper.Map<IEnumerable<LightUserDto>>(_dataAccessService.GetAll());
+            return userToMap;
+        }
+
+        public User GetById(int id)
+        {
+            var userToFind = _dataAccessService.GetById(id);
+            return userToFind;
         }
     }
 }
