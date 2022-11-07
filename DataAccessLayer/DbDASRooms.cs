@@ -21,7 +21,7 @@ namespace Booking_Exercise.DataAccessLayer
         public Room GetById(int id)
         {
             var room = _ctx.Rooms.Include(r => r.HotelId)
-                .Include(r => r.Bookings)
+                //.Include(r => r.Bookings)
                 .Single(room => room.RoomId == id);
             return room;
         }
