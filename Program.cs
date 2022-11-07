@@ -1,3 +1,5 @@
+using Booking_Exercise.BusinessLayer;
+using Booking_Exercise.BusinessLayer.Interfaces;
 using Booking_Exercise.DataAccessLayer;
 using Booking_Exercise.DataAccessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +17,14 @@ builder.Services.AddScoped<IDASHotels, DbDASHotels>();
 builder.Services.AddScoped<IDASRatings, DbDASRatings>();
 builder.Services.AddScoped<IDASRooms, DbDASRooms>();
 builder.Services.AddScoped<IDASUsers, DbDASUsers>();
+
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IHotelService, HotelService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRatingService, RatingService>();
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<BookingDbContext>(option =>
                 option.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=BookingDatabase"));
 
