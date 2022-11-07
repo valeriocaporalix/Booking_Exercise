@@ -1,5 +1,6 @@
 ﻿using Booking_Exercise.DataAccessLayer.Interfaces;
 using Booking_Exercise.Models.HotelModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Booking_Exercise.DataAccessLayer
 {
@@ -14,17 +15,34 @@ namespace Booking_Exercise.DataAccessLayer
 
         public IEnumerable<Hotel> GetAll()
         {
-            throw new NotImplementedException();
+            var hotels = _ctx.Hotels;
+            return hotels;
         }
 
         public Hotel GetById(int id)
         {
-            throw new NotImplementedException();
+            var hotel = _ctx.Hotels.Include(hotel => hotel.Ratings)
+                                   .Include(hotel => hotel.Rooms)
+                                   .Single(hotel => hotel.HotelId == id);
+            return hotel;
         }
 
         public Hotel Post(Hotel input)
         {
-            throw new NotImplementedException();
+            var hotel = _ctx.Hotels.Add(input);
+            _ctx.SaveChanges();
+            return hotel.Entity;
+        }
+
+        public Hotel Put(Hotel input, int hotelId)
+        {
+            var hotelToUpdate = _ctx.Hotels.Single(hotel => hotel.HotelId == hotelId);
+            hotelToUpdate.HotelId = hotelId;
+            hotelToUpdate.Name = input.Name;
+            hotelToUpdate.Address = input.Address;
+            _ctx.Hotels.Update(hotelToUpdate);
+            _ctx.SaveChanges();
+            return hotelToUpdate;
         }
     }
 }

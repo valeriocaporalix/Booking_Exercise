@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Booking_Exercise.Models.HotelModels;
 
 namespace Booking_Exercise.Profiles
 {
@@ -6,7 +7,8 @@ namespace Booking_Exercise.Profiles
     {
         public HotelProfileMappers()
         {
-
+            CreateMap<Hotel, LightHotelDto>();
+            CreateMap<PostHotelDto, Hotel>();
         }
     }
 }

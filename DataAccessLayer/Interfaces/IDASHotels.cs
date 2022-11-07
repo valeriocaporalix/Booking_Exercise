@@ -4,5 +4,6 @@ namespace Booking_Exercise.DataAccessLayer.Interfaces
 {
     public interface IDASHotels : IDataAccessService<Hotel>
     {
+        public Hotel Put(Hotel input, int hotelId);
     }
 }
