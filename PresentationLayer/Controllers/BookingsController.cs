@@ -100,7 +100,7 @@ namespace Booking_Exercise.PresentationLayer.Controllers
         {
             try
             {
-                var bookingToPost = _bookingService.UpdateOrCreateBooking(postBooking, bookingId);
+                var bookingToPost = _bookingService.UpdateBooking(postBooking, bookingId);
                 return NoContent();
             }
             catch (InvalidOperationException)

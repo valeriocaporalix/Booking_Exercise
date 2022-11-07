@@ -52,7 +52,7 @@ namespace Booking_Exercise.BusinessLayer
             _dataAccessService.DeleteBooking(bookingId);
         }
 
-        public Booking UpdateOrCreateBooking(PutBookingDto postBookingDto,int bookingId)
+        public Booking UpdateBooking(PutBookingDto postBookingDto,int bookingId)
         {
 
             var bookingMapped = _mapper.Map<Booking>(postBookingDto);

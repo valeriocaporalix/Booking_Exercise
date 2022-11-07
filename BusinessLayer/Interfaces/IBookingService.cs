@@ -10,6 +10,6 @@ namespace Booking_Exercise.BusinessLayer.Interfaces
         public void AddRoomToBooking(int bookingId, int bookingRoom);
         public void RemoveRoomToBooking(int bookingId, int roomId);
         public void DeleteBooking(int bookingId);
-        public Booking UpdateOrCreateBooking(PutBookingDto postBookingDto, int bookingId);
+        public Booking UpdateBooking(PutBookingDto postBookingDto, int bookingId);
     }
 }
