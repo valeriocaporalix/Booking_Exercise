@@ -17,8 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="DataAccessLayer\Interfaces\" />
+    <Folder Include="PresentationLayer\Controllers\" />
+    <Folder Include="BusinessLayer\" />
+    <Folder Include="PresentationLayer\" />
   </ItemGroup>
 
 </Project>

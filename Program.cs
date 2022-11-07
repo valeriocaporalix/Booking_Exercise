@@ -1,4 +1,5 @@
 using Booking_Exercise.DataAccessLayer;
+using Booking_Exercise.DataAccessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IDASBookings, DbDASBookings>();
+builder.Services.AddScoped<IDASHotels, DbDASHotels>();
+builder.Services.AddScoped<IDASRatings, DbDASRatings>();
+builder.Services.AddScoped<IDASRooms, DbDASRooms>();
+builder.Services.AddScoped<IDASUsers, DbDASUsers>();
 builder.Services.AddDbContext<BookingDbContext>(option =>
                 option.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=BookingDatabase"));
 
