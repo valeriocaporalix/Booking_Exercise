@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Booking_Exercise.Models.RoomModels;
 
 namespace Booking_Exercise.Profiles
 {
@@ -6,7 +7,8 @@ namespace Booking_Exercise.Profiles
     {
         public RoomProfileMappers()
         {
-
+            CreateMap<LightRoomDto, Room>().ReverseMap();
+            CreateMap<PostRoomDto, Room>().ReverseMap();
         }
     }
 }

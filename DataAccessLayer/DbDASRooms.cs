@@ -1,5 +1,6 @@
 ﻿using Booking_Exercise.DataAccessLayer.Interfaces;
 using Booking_Exercise.Models.RoomModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Booking_Exercise.DataAccessLayer
 {
@@ -14,17 +15,22 @@ namespace Booking_Exercise.DataAccessLayer
 
         public IEnumerable<Room> GetAll()
         {
-            throw new NotImplementedException();
+            return _ctx.Rooms;
         }
 
         public Room GetById(int id)
         {
-            throw new NotImplementedException();
+            var room = _ctx.Rooms.Include(r => r.HotelId)
+                //.Include(r => r.Bookings)
+                .Single(room => room.RoomId == id);
+            return room;
         }
 
-        public Room Post(Room input)
+        public Room Post(Room room)
         {
-            throw new NotImplementedException();
+            var roomToAdd = _ctx.Rooms.Add(room).Entity;
+            _ctx.SaveChanges();
+            return roomToAdd;
         }
     }
 }
