@@ -9,6 +9,7 @@ namespace Booking_Exercise.Profiles
         {
             CreateMap<Hotel, LightHotelDto>();
             CreateMap<PostHotelDto, Hotel>();
+            CreateMap<Hotel, DetailsHotelDto>();
         }
     }
 }

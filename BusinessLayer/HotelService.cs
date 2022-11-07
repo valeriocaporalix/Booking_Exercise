@@ -23,10 +23,11 @@ namespace Booking_Exercise.BusinessLayer
             return mappedHotels;
         }
 
-        public Hotel GetHotelById(int hotelId)
+        public DetailsHotelDto GetHotelById(int hotelId)
         {
             var hotel = _dataAccessService.GetById(hotelId);
-            return hotel;
+            var mappedHotel = _mapper.Map<DetailsHotelDto>(hotel);
+            return mappedHotel;
         }
 
         public Hotel InsertHotel(PostHotelDto postHotel)

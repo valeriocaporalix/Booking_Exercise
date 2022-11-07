@@ -6,7 +6,7 @@ namespace Booking_Exercise.BusinessLayer.Interfaces
     {
         public IEnumerable<LightHotelDto> GetHotels();
         public Hotel InsertHotel(PostHotelDto postHotel);
-        public Hotel GetHotelById(int hotelId);
+        public DetailsHotelDto GetHotelById(int hotelId);
         public Hotel ModifyOrCreateHotel(PostHotelDto hotelToModify, int hotelId);
     }
 }
