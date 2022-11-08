@@ -34,6 +34,10 @@ namespace Booking_Exercise.BusinessLayer
         public Rating InsertRating(PostRatingDto postRating)
         {
             var mappedRating = _mapper.Map<Rating>(postRating);
+            if(postRating.RangeRating > 5 || postRating.RangeRating <= 0)
+            {
+                throw new ArgumentException();
+            }
             return _dataAccessService.Post(mappedRating);
         }
     }

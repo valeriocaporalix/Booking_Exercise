@@ -40,8 +40,15 @@ namespace Booking_Exercise.PresentationLayer.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] PostRatingDto postRating)
         {
-            var ratingToAdd = _ratingService.InsertRating(postRating);
-            return Created($"{ratingToAdd.RatingId}", ratingToAdd);
+            try
+            {
+                var ratingToAdd = _ratingService.InsertRating(postRating);
+                return Created($"{ratingToAdd.RatingId}", ratingToAdd);
+            }
+            catch(ArgumentException)
+            {
+                return BadRequest("Rating range between 1 to 5");
+            }
         }
     }
 }
