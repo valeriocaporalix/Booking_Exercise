@@ -37,19 +37,17 @@ namespace Booking_Exercise.DataAccessLayer
         {
             var bookingToUpdate = _ctx.Bookings.Include(booking => booking.Rooms)
                                                .Single(booking => booking.BookingId == bookingId);
-            
+
             var roomToInsert = _ctx.Rooms.Single(room => room.RoomId == roomId);
 
-            var roomsInDateRange = _ctx.Bookings.Include(booking => booking.Rooms)
+            var isRoomAvailable = _ctx.Bookings.Include(booking => booking.Rooms)
                                                 .Where(booking => booking.Rooms
-                                                    .Any(room => room.RoomId == roomToInsert.RoomId));
+                                                    .Any(room => room.RoomId == roomToInsert.RoomId))
+                                                .All(booking =>
+                                                    booking.StartBooking > bookingToUpdate.EndBooking ||
+                                                    booking.EndBooking < bookingToUpdate.StartBooking);
 
-            var isRoomAvailable = roomsInDateRange.All(
-                booking => 
-                    booking.StartBooking > bookingToUpdate.EndBooking || 
-                    booking.EndBooking < bookingToUpdate.StartBooking);
-
-            if(!isRoomAvailable)
+            if (!isRoomAvailable)
             {
                 throw new ArgumentException();
             }
