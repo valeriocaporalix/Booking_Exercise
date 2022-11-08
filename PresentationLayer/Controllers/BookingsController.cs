@@ -61,6 +61,10 @@ namespace Booking_Exercise.PresentationLayer.Controllers
                 _bookingService.AddRoomToBooking(bookingId, roomId);
                 return NoContent();
             }
+            catch(ArgumentException)
+            {
+                return BadRequest("Room not available for booking");
+            }
             catch(Exception)
             {
                 return BadRequest("No booking or room with such id");
