@@ -1,7 +1,9 @@
 ﻿using Booking_Exercise.BusinessLayer.Interfaces;
 using Booking_Exercise.Models.HotelModels;
+using Booking_Exercise.Models.QueryParameters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Booking_Exercise.PresentationLayer.Controllers
 {
@@ -16,9 +18,19 @@ namespace Booking_Exercise.PresentationLayer.Controllers
             _hotelService = hotelService;
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] PageParameters parameters)
         {
-            var hotels = _hotelService.GetHotels();
+            var hotels = _hotelService.GetHotels(parameters);
+            var metadata = new
+            {
+                hotels.TotalCount,
+                hotels.PageSize,
+                hotels.CurrentPage,
+                hotels.TotalPages,
+                hotels.HasNext,
+                hotels.HasPrevious
+            };
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
             return Ok(hotels);
         }
 

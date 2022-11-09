@@ -2,6 +2,8 @@
 using Booking_Exercise.BusinessLayer.Interfaces;
 using Booking_Exercise.DataAccessLayer.Interfaces;
 using Booking_Exercise.Models.HotelModels;
+using Booking_Exercise.Models.QueryParameters;
+using Booking_Exercise.Utilities;
 
 namespace Booking_Exercise.BusinessLayer
 {
@@ -16,11 +18,13 @@ namespace Booking_Exercise.BusinessLayer
             _mapper = mapper;
         }
 
-        public IEnumerable<LightHotelDto> GetHotels()
+        public PagedList<LightHotelDto> GetHotels(PageParameters parameters)
         {
             var hotels = _dataAccessService.GetAll();
             var mappedHotels = _mapper.Map<List<LightHotelDto>>(hotels);
-            return mappedHotels;
+            return PagedList<LightHotelDto>.ToPagedList(mappedHotels, parameters.PageNumber, parameters.PageSize);
+            //return mappedHotels.Skip((parameters.PageNumber - 1) * parameters.PageSize)
+            //                   .Take(parameters.PageSize);
         }
 
         public DetailsHotelDto GetHotelById(int hotelId)
