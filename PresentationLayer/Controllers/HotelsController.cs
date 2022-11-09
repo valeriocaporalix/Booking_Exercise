@@ -18,9 +18,15 @@ namespace Booking_Exercise.PresentationLayer.Controllers
             _hotelService = hotelService;
         }
         [HttpGet]
+
+        // Aggiugiamo un FromQuery.
         public IActionResult GetAll([FromQuery] PageParameters parameters)
         {
+            // Dichiaro una variabile hotels e la inizializzo tramite il metodo GetHotels del service
+            // che ci restituisce una PagedList con la lista di hotel e una RawData
             var hotels = _hotelService.GetHotels(parameters);
+
+            // Istanziamo un oggetto anonimo (metadata) da inserire nell'headers.
             var metadata = new
             {
                 hotels.TotalCount,
@@ -30,7 +36,9 @@ namespace Booking_Exercise.PresentationLayer.Controllers
                 hotels.HasNext,
                 hotels.HasPrevious
             };
+            // Serializziamo ed inseriamo il metadata nell'headers.
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            // Restituiamo Ok con la lista di hotels.
             return Ok(hotels);
         }
 

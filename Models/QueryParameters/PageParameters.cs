@@ -1,5 +1,7 @@
 ﻿namespace Booking_Exercise.Models.QueryParameters
 {
+    // Abbiamo iniziato creando un QueryParametersModel generale (possiamo applicarlo a qualsiasi
+    // entità da "paginare").
     public class PageParameters
     {
         const int maxPageSize = 1000;

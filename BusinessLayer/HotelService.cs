@@ -18,13 +18,15 @@ namespace Booking_Exercise.BusinessLayer
             _mapper = mapper;
         }
 
+        // Cambiamo il ritorno effettivo del metodo GetHotels e restituiamo una PagedList tramite il 
+        // metodo statico della classe che ci inizializza la lista PagedList.
+
+        // Tramite i query params lavoriamo sulla paginazione nel metodo statico.
         public PagedList<LightHotelDto> GetHotels(PageParameters parameters)
         {
             var hotels = _dataAccessService.GetAll();
             var mappedHotels = _mapper.Map<List<LightHotelDto>>(hotels);
             return PagedList<LightHotelDto>.ToPagedList(mappedHotels, parameters.PageNumber, parameters.PageSize);
-            //return mappedHotels.Skip((parameters.PageNumber - 1) * parameters.PageSize)
-            //                   .Take(parameters.PageSize);
         }
 
         public DetailsHotelDto GetHotelById(int hotelId)

@@ -21,6 +21,10 @@ namespace Booking_Exercise.DataAccessLayer
 
         }
 
+        // Mediante il builder, andiamo a creare gli oggetti all'interno della tabella hotel
+        // essendo nel context ed usando l'OnModelCreating, andiamo ad agire direttamente
+        // nel database.
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Hotel>().HasData(
@@ -36,5 +40,9 @@ namespace Booking_Exercise.DataAccessLayer
                     new Hotel { HotelId = 20, Name = "Hotel TestTen", Address = "Via Test 10" }
                 );
         }
+
+        // Una volta definito il metodo, dobbiamo modificare la nostra migrazione:
+        // add-migration Seeding
+        // update-database
     }
 }

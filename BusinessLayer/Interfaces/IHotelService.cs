@@ -6,6 +6,7 @@ namespace Booking_Exercise.BusinessLayer.Interfaces
 {
     public interface IHotelService
     {
+        // Cambiamo il ritorno di GetHotels
         public PagedList<LightHotelDto> GetHotels(PageParameters parameters);
         public Hotel InsertHotel(PostHotelDto postHotel);
         public DetailsHotelDto GetHotelById(int hotelId);
