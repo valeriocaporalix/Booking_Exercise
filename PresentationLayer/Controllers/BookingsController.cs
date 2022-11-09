@@ -2,6 +2,7 @@
 using Booking_Exercise.BusinessLayer.Interfaces;
 using Booking_Exercise.Models.BookingModels;
 using Booking_Exercise.Models.HotelModels;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,12 @@ namespace Booking_Exercise.PresentationLayer.Controllers
     public class BookingsController : ControllerBase
     {
         private IBookingService _bookingService;
+        private IValidator<PostBookingDto> _postValidator;
 
-        public BookingsController(IBookingService bookingService)
+        public BookingsController(IBookingService bookingService, IValidator<PostBookingDto> validator)
         {
             _bookingService = bookingService;
+            _postValidator = validator;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -44,12 +47,17 @@ namespace Booking_Exercise.PresentationLayer.Controllers
         {
             try
             {
+                _postValidator.ValidateAndThrow(postBooking);
                 var bookingAdded = _bookingService.InsertBooking(postBooking);
                 return Created($"{bookingAdded.BookingId}", bookingAdded);
             }
-            catch(DbUpdateException)
+            catch (DbUpdateException)
             {
                 return BadRequest("No user with such id");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
