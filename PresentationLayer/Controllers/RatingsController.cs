@@ -1,4 +1,5 @@
 ﻿using Booking_Exercise.BusinessLayer.Interfaces;
+using Booking_Exercise.Models.QueryParameters;
 using Booking_Exercise.Models.RatingModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +18,9 @@ namespace Booking_Exercise.PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] PageParameters parameters )
         {
-            var ratingList = _ratingService.GetRatings();
+            var ratingList = _ratingService.GetRatings(parameters);
             return Ok(ratingList);
         }
 

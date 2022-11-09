@@ -2,6 +2,7 @@
 using Booking_Exercise.BusinessLayer.Interfaces;
 using Booking_Exercise.DataAccessLayer.Interfaces;
 using Booking_Exercise.Models.HotelModels;
+using Booking_Exercise.Models.QueryParameters;
 using Booking_Exercise.Models.RatingModels;
 
 namespace Booking_Exercise.BusinessLayer
@@ -17,11 +18,12 @@ namespace Booking_Exercise.BusinessLayer
             _mapper = mapper;
         }
 
-        public IEnumerable<LightRatingDto> GetRatings()
+        public IEnumerable<LightRatingDto> GetRatings(PageParameters parameters)
         {
             var ratingList = _dataAccessService.GetAll();
             var mappedRating = _mapper.Map<List<LightRatingDto>>(ratingList);
-            return mappedRating;
+            return mappedRating.Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                               .Take(parameters.PageSize);
         }
 
         public DetailsRatingDto GetRatingById(int ratingId)
