@@ -27,19 +27,21 @@ namespace Booking_Exercise.PresentationLayer.Controllers
             var hotels = _hotelService.GetHotels(parameters);
 
             // Istanziamo un oggetto anonimo (metadata) da inserire nell'headers.
-            var metadata = new
+            var result = new
             {
                 hotels.TotalCount,
                 hotels.PageSize,
                 hotels.CurrentPage,
                 hotels.TotalPages,
                 hotels.HasNext,
-                hotels.HasPrevious
+                hotels.HasPrevious,
+                hotels
             };
             // Serializziamo ed inseriamo il metadata nell'headers.
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            //Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+           // var result = new List<object>() { metadata, hotels };
             // Restituiamo Ok con la lista di hotels.
-            return Ok(hotels);
+            return Ok(result);
         }
 
         [HttpGet("id")]

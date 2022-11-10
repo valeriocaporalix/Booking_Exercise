@@ -3,7 +3,6 @@
     // PagedList è una lista che possiede un set di proprietà che servono alla paginazione.
     public class PagedList<T> : List<T>
     {
-
         public int CurrentPage { get; private set; }
         public int TotalPages { get; private set; }
         public int PageSize { get; private set; }
@@ -15,9 +14,9 @@
         public PagedList(List<T> items, int count, int pageNumber, int pageSize)
         {
             TotalCount = count;
-            PageSize = pageSize;
+            PageSize = pageSize == 0 ? count : pageSize;
             CurrentPage = pageNumber;
-            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            TotalPages = pageSize != 0 ? (int)Math.Ceiling(count / (double)pageSize) : 1;
             AddRange(items);
         }
 
@@ -27,7 +26,8 @@
             var count = source.Count();
             // Cuore del paging <3
             var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-            return new PagedList<T>(items, count, pageNumber, pageSize);
+            var itemsToReturn = items.Count() == 0 ? source.ToList() : items;
+            return new PagedList<T>(itemsToReturn, count, pageNumber, pageSize);
         }
     }
 }
