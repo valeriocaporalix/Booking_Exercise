@@ -20,10 +20,9 @@ namespace Booking_Exercise.BusinessLayer
 
         public IEnumerable<LightRatingDto> GetRatings(PageParameters parameters)
         {
-            var ratingList = _dataAccessService.GetAll();
+            var ratingList = _dataAccessService.GetAllPaging(parameters);
             var mappedRating = _mapper.Map<List<LightRatingDto>>(ratingList);
-            return mappedRating.Skip((parameters.PageNumber - 1) * parameters.PageSize)
-                               .Take(parameters.PageSize);
+            return mappedRating;
         }
 
         public DetailsRatingDto GetRatingById(int ratingId)

@@ -32,6 +32,10 @@ builder.Services.AddScoped<IValidator<PostBookingDto>, PostBookingValidator>();
 builder.Services.AddDbContext<BookingDbContext>(option =>
                 option.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=BookingDatabase"));
 
+builder.Services.AddCors(option => option.AddDefaultPolicy(policy => policy.AllowAnyOrigin())); // AGGIUNGERE CORS
+
+//builder.Services.AddCors(options => { options.AddPolicy(name: "enableCors", policy => { policy.WithOrigins().AllowAnyOrigin(); }); });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,6 +44,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(); // USARE CORS
 
 app.UseHttpsRedirection();
 

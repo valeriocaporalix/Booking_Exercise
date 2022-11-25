@@ -1,4 +1,5 @@
 ﻿using Booking_Exercise.DataAccessLayer.Interfaces;
+using Booking_Exercise.Models.QueryParameters;
 using Booking_Exercise.Models.RatingModels;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Features;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,12 @@ namespace Booking_Exercise.DataAccessLayer
         public IEnumerable<Rating> GetAll()
         {
             return _ctx.Ratings;
+        }
+
+        public IEnumerable<Rating> GetAllPaging(PageParameters parameters)
+        {
+            return _ctx.Ratings.Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                               .Take(parameters.PageSize);
         }
 
         public Rating GetById(int id)

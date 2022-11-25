@@ -3,12 +3,14 @@ using Booking_Exercise.BusinessLayer.Interfaces;
 using Booking_Exercise.Models.BookingModels;
 using Booking_Exercise.Models.HotelModels;
 using FluentValidation;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Booking_Exercise.PresentationLayer.Controllers
 {
+    //[EnableCors("enableCors")]
     [Route("[controller]")]
     [ApiController]
     public class BookingsController : ControllerBase
